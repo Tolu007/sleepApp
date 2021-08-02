@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sleep_app/constants/constants.dart';
+import 'package:sleep_app/widgets/widgets.dart';
 
 class City_Household extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _City_HouseholdState extends State<City_Household> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               mainColumn(Icons.cloud_circle, "Forest birds"),
-              mainColumn(Icons.cloud_circle, "Forest wwaterfall"),
+              mainColumn(Icons.cloud_circle, "Forest waterfall"),
               mainColumn(Icons.cloud_circle, "Forest wind"),
             ],
           ),

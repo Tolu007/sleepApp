@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sleep_app/constants/constants.dart';
 import 'package:sleep_app/services/audioPlayer.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 import 'homePage.dart';
 
@@ -42,9 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Text(
                   "Sleep App",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.lato(
                     fontSize: 40,
-                    color: Colors.deepPurple,
+                    color: mainPurpleColor,
                     fontWeight: FontWeight.w300,
                   ),
                 ),
