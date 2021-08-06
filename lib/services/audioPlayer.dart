@@ -58,7 +58,3 @@ resume(AudioPlayer _audName) {
   //AudioPlayer audioPlayer[audioNumber] = AudioPlayer();
   _audName.resume();
 }
-
-volume() {
-  audioPlayer1.setVolume(1);
-}

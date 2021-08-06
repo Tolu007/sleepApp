@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sleep_app/constants/constants.dart';
 import "package:sleep_app/views/mainHomePage.dart";
 
-double _sliderValue = 0.0;
+//double _sliderValue = 0.0;
 
 //modal sheet to show playing sounds and work on volume
 // modalSheet(BuildContext context) {
@@ -48,17 +48,17 @@ double _sliderValue = 0.0;
 //             max: 1.0,
 //             activeColor: mainPurpleColor,
 //           ),
-//           // IconButton(
-//           //   onPressed: () {
-//           //     // volumeTracker.remove(WeatherIcons.wi_alien);
-//           //     //  deleteVolumeListItem(index);
-//           //   },
-//           //   icon: Icon(
-//           //     Icons.shopping_basket_outlined,
-//           //     size: 20,
-//           //     color: mainPurpleColor,
-//           //   ),
-//           // ),
+//           IconButton(
+//             onPressed: () {
+//               // volumeTracker.remove(WeatherIcons.wi_alien);
+//               //  deleteVolumeListItem(index);
+//             },
+//             icon: Icon(
+//               Icons.shopping_basket_outlined,
+//               size: 20,
+//               color: mainPurpleColor,
+//             ),
+//           ),
 //         ],
 //       ),
 //     ),

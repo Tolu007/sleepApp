@@ -29,77 +29,58 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                 SizedBox(
                   width: 10,
                 ),
-                Column(
-                  children: [
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        //print("$isPlaying  i m here");
-                        if (!isPlaying1) {
-                          isPlaying1 = true;
-                          player1.loop(audioNames[0]);
-                          audNames.add(audioPlayer1);
-                          volumeTracker.putIfAbsent(
-                              WeatherIcons.wi_sprinkle, () => audioPlayer1);
-                          print("1 added");
-                          setState(() {
-                            tab1 = isPlayingColor;
-                          });
-                        } else {
-                          isPlaying1 = false;
-                          print("$isPlaying1  i m here");
-                          audioPlayer1.stop();
-                          audioPlayer1.release();
-                          audNames.remove(audioPlayer1);
-                          volumeTracker.remove(WeatherIcons.wi_sprinkle);
-                          print("1 removed");
-                          setState(() {
-                            tab1 = transparent;
-                          });
-                        }
-                      },
-                      child: Container(
-                        height: 80,
-                        width: 100,
-                        child: Stack(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(2),
-                              width: 65,
-                              height: 65,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: tab1,
-                              ),
-                            ),
-                            Positioned(
-                              top: 2.5,
-                              left: 2.5,
-                              child: mainColumn(
-                                WeatherIcons.wi_sprinkle,
-                                "Rain Light",
-                              ),
-                            ),
-                          ],
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    //print("$isPlaying  i m here");
+                    if (!isPlaying1) {
+                      isPlaying1 = true;
+                      player1.loop(audioNames[0]);
+                      audNames.add(audioPlayer1);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_sprinkle, () => audioPlayer1);
+                      print("1 added");
+                      setState(() {
+                        tab1 = isPlayingColor;
+                      });
+                    } else {
+                      isPlaying1 = false;
+                      print("$isPlaying1  i m here");
+                      audioPlayer1.stop();
+                      audioPlayer1.release();
+                      audNames.remove(audioPlayer1);
+                      volumeTracker.remove(WeatherIcons.wi_sprinkle);
+                      print("1 removed");
+                      setState(() {
+                        tab1 = transparent;
+                      });
+                    }
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 100,
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          width: 65,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: tab1,
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          top: 2.5,
+                          left: 2.5,
+                          child: mainColumn(
+                            WeatherIcons.wi_sprinkle,
+                            "Rain Light",
+                          ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      width: 60,
-                      height: 60,
-                      child: Slider(
-                        value: _sliderValue.toDouble(),
-                        min: 0.0,
-                        max: 1.0,
-                        onChanged: (newValue) {
-                          setState(() {
-                            _sliderValue = newValue;
-                            print("Slider $_sliderValue");
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
@@ -163,6 +144,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying3 = true;
                       player3.loop(audioNames[2]);
                       audNames.add(audioPlayer3);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer3);
                       print("3 added");
                       setState(() {
                         tab3 = isPlayingColor;
@@ -175,6 +158,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer3.stop();
                       audioPlayer3.release();
                       audNames.remove(audioPlayer3);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       print("3 removed");
                       print(audNames.length);
                       setState(() {
@@ -228,6 +212,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying4 = true;
                       player4.loop(audioNames[3]);
                       audNames.add(audioPlayer4);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer4);
                       setState(() {
                         tab4 = isPlayingColor;
                       });
@@ -237,6 +223,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer4.stop();
                       audioPlayer4.release();
                       audNames.remove(audioPlayer4);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       setState(() {
                         tab4 = transparent;
                       });
@@ -276,6 +263,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying5 = true;
                       player5.loop(audioNames[4]);
                       audNames.add(audioPlayer5);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer5);
                       setState(() {
                         tab5 = isPlayingColor;
                       });
@@ -285,6 +274,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer5.stop();
                       audioPlayer5.release();
                       audNames.remove(audioPlayer5);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       setState(() {
                         tab5 = transparent;
                       });
@@ -324,6 +314,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying6 = true;
                       player6.loop(audioNames[5]);
                       audNames.add(audioPlayer6);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer6);
                       setState(() {
                         tab6 = isPlayingColor;
                       });
@@ -333,6 +325,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer6.stop();
                       audioPlayer6.release();
                       audNames.remove(audioPlayer6);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       setState(() {
                         tab6 = transparent;
                       });
@@ -384,6 +377,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying7 = true;
                       player7.loop(audioNames[8]);
                       audNames.add(audioPlayer7);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer7);
                       setState(() {
                         tab7 = isPlayingColor;
                       });
@@ -393,6 +388,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer7.stop();
                       audioPlayer7.release();
                       audNames.remove(audioPlayer7);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       setState(() {
                         tab7 = transparent;
                       });
@@ -432,6 +428,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       isPlaying8 = true;
                       player8.loop(audioNames[7]);
                       audNames.add(audioPlayer8);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_alien, () => audioPlayer8);
                       setState(() {
                         tab8 = isPlayingColor;
                       });
@@ -441,6 +439,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer8.stop();
                       audioPlayer8.release();
                       audNames.remove(audioPlayer8);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       setState(() {
                         tab8 = transparent;
                       });
@@ -481,6 +480,8 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       player9.loop(audioNames[8]);
                       print(audNames.length);
                       audNames.add(audioPlayer9);
+                      volumeTracker.putIfAbsent(
+                          WeatherIcons.wi_barometer, () => audioPlayer9);
                       print(audNames.length);
                       setState(() {
                         tab9 = isPlayingColor;
@@ -491,6 +492,7 @@ class _Rain_MeditationState extends State<Rain_Meditation> {
                       audioPlayer9.stop();
                       audioPlayer9.release();
                       audNames.remove(audioPlayer9);
+                      volumeTracker.remove(WeatherIcons.wi_alien);
                       print(audNames.length);
                       setState(() {
                         tab9 = transparent;

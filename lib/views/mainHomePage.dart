@@ -20,7 +20,7 @@ List audioPlayerStore = [];
 class _mainHomePageState extends State<mainHomePage>
     with SingleTickerProviderStateMixin {
   TabController _controller;
-  double _sliderValue = 0.5;
+  double _sliderValue;
   List<Widget> list = [
     Tab(
       text: "Rain & Water",
@@ -40,57 +40,13 @@ class _mainHomePageState extends State<mainHomePage>
   void initState() {
     super.initState();
     _controller = TabController(length: list.length, vsync: this);
+    _sliderValue = 0.0;
   }
 
+  int length = 0;
 //use key to retrieve data from map
-  // void deleteVolumeListItem(AudioPlayer plays) {
-  //   setState(() {
-  //     volumeTracker.remove(plays);
-  //     //print("Index: $index");
-  //     // AudioPlayer plays = volumeTracker.values.elementAt(index);
-  //     plays.stop();
-  //   });
-  // }
-
-  Widget _buildListView(BuildContext context, int index) {
-    return Container(
-      height: 100,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Icon(
-              volumeTracker.keys.elementAt(index),
-            ),
-            Slider(
-              value: _sliderValue.toDouble(),
-              min: 0.0,
-              max: 1.0,
-              onChanged: (newValue) {
-                setState(() {
-                  _sliderValue = newValue;
-                  print("Slider $_sliderValue");
-                });
-              },
-            ),
-            // IconButton(
-            //   onPressed: () {
-            //     // volumeTracker.remove(WeatherIcons.wi_alien);
-            //     // print("deleting $index");
-            //     deleteVolumeListItem(audioPlayerStore[index]);
-            //     print(volumeTracker.length);
-            //   },
-            //   icon: Icon(
-            //     Icons.shopping_basket_outlined,
-            //     size: 20,
-            //     color: mainPurpleColor,
-            //   ),
-            // ),
-          ],
-        ),
-      ),
-    );
+  void deleteVolumeListItem(int index) {
+    //print("Index: $index");
   }
 
   @override
@@ -191,22 +147,111 @@ class _mainHomePageState extends State<mainHomePage>
                       onPressed: () {
                         audioPlayerStore = volumeTracker.values.toList();
                         if (volumeTracker.isNotEmpty) {
-                          // modalSheet(context);
-                          int length = volumeTracker.length;
+                          //modalSheet(context);
+                          setState(() {
+                            length = volumeTracker.length;
+                          });
                           print("Length is $length");
                           return showModalBottomSheet(
+                            isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemCount: volumeTracker.length,
-                                    itemBuilder: _buildListView,
-                                  ),
-                                ],
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          print("Length is $length");
+                                          return Container(
+                                            height: 100,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    volumeTracker.keys
+                                                        .elementAt(index),
+                                                  ),
+                                                  StatefulBuilder(builder:
+                                                      (context, setState) {
+                                                    return Slider(
+                                                      value: _sliderValue,
+                                                      onChanged: (newValue) {
+                                                        setState(() {
+                                                          _sliderValue =
+                                                              newValue;
+                                                          AudioPlayer
+                                                              volumeInstance =
+                                                              volumeTracker
+                                                                  .values
+                                                                  .elementAt(
+                                                                      index);
+                                                          volumeInstance
+                                                              .setVolume(
+                                                                  _sliderValue);
+                                                        });
+                                                      },
+                                                      min: 0.0,
+                                                      max: 1.0,
+                                                      activeColor:
+                                                          mainPurpleColor,
+                                                    );
+                                                  }),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      if (volumeTracker.length >
+                                                          0) {
+                                                        List keyTracker =
+                                                            volumeTracker.keys
+                                                                .toList();
+                                                        // volumeTracker.remove(WeatherIcons.wi_alien);
+                                                        AudioPlayer plays =
+                                                            volumeTracker.values
+                                                                .elementAt(
+                                                                    index);
+                                                        plays.stop();
+                                                        setState(() {
+                                                          volumeTracker.remove(
+                                                              keyTracker[
+                                                                  index]);
+                                                        });
+                                                        if (volumeTracker
+                                                                .length <=
+                                                            0) {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        }
+                                                      } else {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      }
+                                                    },
+                                                    icon: Icon(
+                                                      Icons
+                                                          .shopping_basket_outlined,
+                                                      size: 20,
+                                                      color: mainPurpleColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
                               );
                             },
                           );
@@ -240,5 +285,73 @@ class _mainHomePageState extends State<mainHomePage>
         ]),
       ),
     );
+  }
+
+  // modalSheet(BuildContext context) {
+  //   int length = volumeTracker.length;
+  //   print("Length is $length");
+  //   return showModalBottomSheet(
+  //     context: context,
+  //     builder: (context) {
+  //       return Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           ListView.builder(
+  //             shrinkWrap: true,
+  //             physics: NeverScrollableScrollPhysics(),
+  //             itemCount: volumeTracker.length,
+  //             itemBuilder: _buildListView,
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
+//list tile builder for the volume manipulation widget
+  Widget _buildListView(BuildContext context, int index) {
+    // return Container(
+    //   height: 100,
+    //   child: Padding(
+    //     padding: const EdgeInsets.all(5.0),
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //       children: <Widget>[
+    //         Icon(
+    //           volumeTracker.keys.elementAt(index),
+    //         ),
+    //         Slider(
+    //           value: _sliderValue,
+    //           onChanged: (newValue) {
+    //             _sliderValue = newValue;
+    //           },
+    //           min: 0.0,
+    //           max: 1.0,
+    //           activeColor: mainPurpleColor,
+    //         ),
+    //         IconButton(
+    //           onPressed: () {
+    //             // volumeTracker.remove(WeatherIcons.wi_alien);
+    //             AudioPlayer plays = volumeTracker.values.elementAt(index);
+    //             print(volumeTracker.length);
+    //             print("222");
+    //             volumeTracker.remove(plays);
+    //             print(volumeTracker.length);
+    //             plays.stop();
+    //             volumeTracker.remove(index);
+    //             setState(() {
+    //               print(volumeTracker[index]);
+    //             });
+    //           },
+    //           icon: Icon(
+    //             Icons.shopping_basket_outlined,
+    //             size: 20,
+    //             color: mainPurpleColor,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
